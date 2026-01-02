@@ -1,40 +1,91 @@
-let tg = window.Telegram.WebApp;
-
-// Массив корзины
-let cart = [];
-
-// Цены товаров
-const prices = {
-    "Наушники": 1500,
-    "Смарт-часы": 3000,
-    "Смартфон": 25000
-};
-
-// Добавление товара в корзину
-function buy(product) {
-    cart.push(product);
-    alert(`${product} добавлен в корзину!`);
+/* Общие настройки */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
 }
 
-// Отправка корзины в бота
-function sendCart() {
-    if(cart.length === 0){
-        alert("Корзина пуста!");
-        return;
+/* Заголовок */
+h1 {
+    color: #222;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Карточки товаров */
+.product {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 15px auto;
+    max-width: 360px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.product:hover {
+    transform: translateY(-3px);
+}
+
+.product p {
+    font-size: 20px;
+    color: #111;
+    margin-bottom: 15px;
+}
+
+/* Кнопки товаров */
+button {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    padding: 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #3b82f6; /* синий цвет */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #2563eb;
+    transform: scale(1.03);
+}
+
+/* Кнопка отправки корзины */
+#sendCartBtn {
+    background-color: #10b981; /* зелёный */
+    font-size: 20px;
+    padding: 18px 0;
+    margin-top: 20px;
+}
+
+#sendCartBtn:hover {
+    background-color: #059669;
+    transform: scale(1.03);
+}
+
+/* Адаптация под мобильные экраны */
+@media (max-width: 400px) {
+    .product {
+        width: 95%;
+        padding: 18px;
     }
 
-    // Подсчёт общей суммы
-    let total = 0;
-    for(let item of cart){
-        total += prices[item] || 0;
+    button {
+        width: 95%;
+        font-size: 18px;
+        padding: 16px 0;
     }
 
-    // Отправка данных в формате JSON
-    const order = {
-        items: cart,
-        total: total
-    };
-
-    tg.sendData(JSON.stringify(order));
-    cart = []; // очищаем корзину после отправки
+    #sendCartBtn {
+        width: 95%;
+        font-size: 20px;
+        padding: 18px 0;
+    }
 }
